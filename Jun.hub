@@ -1,0 +1,35 @@
+-- JunixHub [Rayfied Edition]
+local RS = game:GetService("ReplicatedStorage")
+local Remotes = RS.Shared.Remotes
+
+local function randomWait(min, max)
+    task.wait(math.random(min * 100, max * 100) / 100)
+end
+
+local function runCycle()
+    while true do
+        -- Market Check
+        Remotes.Market.GetState:InvokeServer()
+        randomWait(1, 3)
+
+        -- Buying (Examples based on your log)
+        Remotes.Shop.BuySeed:FireServer("Marang")
+        randomWait(1.5, 4)
+        Remotes.Shop.BuySeed:FireServer("DuhatWild")
+        randomWait(1.5, 4)
+
+        -- Tools/Equip (Simulated logic)
+        -- You'll need to adjust paths to your current tools
+        Remotes.Tools.Held:FireServer() 
+        randomWait(1, 2)
+
+        -- Harvesting / Planting / etc...
+        -- [I'll keep adding the rest of your logic here]
+        
+        print("Cycle complete. Waiting for next loop.")
+        randomWait(10, 30) -- Long pause between full cycles
+    end
+end
+
+-- Start your journey
+task.spawn(runCycle)
